@@ -4,10 +4,11 @@ import AccreditImage from './AccreditImage';
 export class HomePage extends React.Component {
 
   render() {
+    const componentName = 'HomePage';
     return (
     <div>
       <h1>Why web development?</h1>
-      <AccreditImage/>
+      <AccreditImage componentName={componentName}/>
       <ol>
         <li>Learning Everyday</li>
         <li>High Demand Profession</li>

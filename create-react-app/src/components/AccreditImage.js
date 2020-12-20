@@ -1,9 +1,13 @@
 import React from 'react';
-import { makeStyles, Popover, Typography } from '@material-ui/core';
-import Image from 'material-ui-image';
+import { withStyles, Typography } from '@material-ui/core';
+// import Image from 'material-ui-image';
 import GirlOnLaptop from '../assets/girl-on-laptop.jpg';
+// import PairProgramming from '../assets/pair-programming.jpg';
+// import TinyDevelopers from '../assets/tiny-developers.jpg';
+// import WebsiteDesign from '../assets/website-design.jpg';
+import { images } from './images';
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   image: {
     [theme.breakpoints.up('md')]: {
       width: '40% !important',
@@ -11,47 +15,81 @@ const useStyles = makeStyles((theme) => ({
       border: "red 5px solid",
     }
   }
-}));
+});
 
-export default function AccreditImage() {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handlePopoverOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-
-  return (
-    <>
-      <Image
-        // onClick={this.÷}
-        src={GirlOnLaptop}
-        className={classes.image}
-        onMouseEnter={handlePopoverOpen}
-        onMouseLeave={handlePopoverClose}
-      />
-      <Popover
-        anchorOrigin={{
-          vertical: 'center',
-          horizontal: 'left',
-        }}
-        id='mouse-over-popover'
-        open={open}
-        onClose={handlePopoverClose}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        disableRestoreFocus
-      >
-        <Typography>Image designed by imageAuthor </Typography>
-      </Popover>
-    </>
-  );
+class Popover extends React.Component {
+  render() {
+    return (
+      <div className='popup'>
+        <div className='popup_inner'>
+          <h1>{this.props.text}</h1>
+        </div>
+      </div>
+    );
+  }
 }
+
+class AccreditImage extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      popoverOpen: false, 
+    }
+  }
+
+  togglePopover = () => {
+    this.setState({popoverOpen: !this.state.popoverOpen})
+  }
+
+  render() {
+    const { classes } = this.props;
+    const { popoverOpen } = this.state;
+
+    const imageAccreditLink = images.map((author, key) => {
+      if (this.props.componentName === 'HomePage'){
+        return (
+          <div key={key}>
+            {author.GirlOnLaptopAuthor}
+          </div>
+        )
+      } else if (this.props.componentName === 'HtmlAccordion'){
+        return (
+          <div key={key}>
+            {author.PairProgrammingAuthor}
+          </div>
+        )
+      } else if (this.props.componentName === 'CssAccordion'){
+        return (
+          <div key={key}>
+            {author.TinyDevelopersAuthor}
+          </div>
+        )
+      } else {
+          <div key={key}>
+            {author.WebsiteDesign}
+          </div>
+        }
+      });
+
+    return (
+      <>
+        <img
+          onMouseEnter={this.togglePopover}
+          onMouseLeave={this.togglePopover}
+          src={GirlOnLaptop}
+          className={classes.image}
+        />
+        {
+          popoverOpen ?
+          <Popover
+            text={imageAccreditLink}
+            onMouseLeave={this.togglePopover}
+          />
+        : null
+        }
+      </>
+    );
+  }
+}
+
+export default withStyles(styles, { withTheme: true })(AccreditImage);

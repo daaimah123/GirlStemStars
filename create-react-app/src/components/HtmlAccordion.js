@@ -37,7 +37,8 @@ class HtmlAccordion extends React.Component {
     this.setState({expanded: true, setExpanded: panel});
   };
 
-  render(){ 
+  render(){
+    const componentName = 'HtmlAccordion';
     const {expanded } = this.state;
     const { classes } = this.props;
     return (
