@@ -1,0 +1,53 @@
+
+@import url(https://fonts.googleapis.com/css?family=Play|Asap|Luckiest+Guy|Fredericka+the+Great|Khand);
+@import url(https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Source+Sans+Pro:wght@900&display=swap);
+
+.header {
+  text-transform: uppercase;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 5vw;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+/* TO-DO: tablet/mobile view popup needs to be adjusted, not overlaying image presently and temporary fix with display: none, but would like to have it sit above or below image */
+.imageAccreditPopup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ce93d8;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (max-width: 1025px){
+  .imageAccreditPopup {
+    display: none;
+  }
+}
+
+.text-over-img {
+  position: relative;
+  text-align: center;
+  display: block;
+  margin: auto;
+}
+
+.text-area {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+p {
+  font-family: 'Comfortaa', cursive;
+  font-size: 1.5em;
+}
+
+code {
+  background-color: #eee;
+  border-radius: 3px;
+  font-family: courier, monospace;
+  padding: 0 3px;
+}

@@ -6,6 +6,7 @@ import {
   AccordionSummary,
   Typography
 } from '@material-ui/core';
+import '../style.css';
 // import { ExpandMoreIcon } from '@material-ui/icons/ExpandMore';
 
 const styles = theme => ({
@@ -23,7 +24,7 @@ const styles = theme => ({
   },
 });
 
-class HtmlAccordion extends React.Component {
+class HtmlPage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -131,5 +132,5 @@ class HtmlAccordion extends React.Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(HtmlAccordion);
+export default withStyles(styles, { withTheme: true })(HtmlPage);
 

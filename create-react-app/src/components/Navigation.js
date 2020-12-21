@@ -6,9 +6,10 @@ import {
   Box,
   Tab, 
   Tabs, 
-  Typography,
 } from '@material-ui/core';
 import { HomePage } from './HomePage';
+import { CssPage } from './CssPage';
+import HtmlPage from './HtmlPage';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -82,10 +83,10 @@ export function Navigation() {
         <HomePage/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        HTML
+        <HtmlPage/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        CSS
+        <CssPage/>
       </TabPanel>
     </div>
   );

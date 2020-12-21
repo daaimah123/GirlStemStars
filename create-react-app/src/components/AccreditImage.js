@@ -1,31 +1,14 @@
 import React from 'react';
-import { withStyles, Typography } from '@material-ui/core';
-// import Image from 'material-ui-image';
+import '../styles/accredit-image.css';
 import GirlOnLaptop from '../assets/girl-on-laptop.jpg';
-// import PairProgramming from '../assets/pair-programming.jpg';
-// import TinyDevelopers from '../assets/tiny-developers.jpg';
-// import WebsiteDesign from '../assets/website-design.jpg';
-import { images } from './images';
+import PairProgramming from '../assets/pair-programming.jpg';
+import TinyDevelopers from '../assets/tiny-developers.jpg';
+import WebsiteDesign from '../assets/website-design.jpg';
+import { imageAuthors } from '../images';
 
-const styles = theme => ({
-  image: {
-    [theme.breakpoints.up('md')]: {
-      width: '40% !important',
-      height: '40% !important',
-      border: "red 5px solid",
-    }
-  }
-});
-
-class Popover extends React.Component {
+class Popup extends React.Component {
   render() {
-    return (
-      <div className='popup'>
-        <div className='popup_inner'>
-          <h1>{this.props.text}</h1>
-        </div>
-      </div>
-    );
+    return this.props.text;
   }
 }
 
@@ -33,63 +16,120 @@ class AccreditImage extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      popoverOpen: false, 
+      popupOpen: false, 
     }
   }
 
-  togglePopover = () => {
-    this.setState({popoverOpen: !this.state.popoverOpen})
+  togglePopup = () => {
+    this.setState({popupOpen: !this.state.popupOpen})
   }
 
   render() {
-    const { classes } = this.props;
-    const { popoverOpen } = this.state;
+    const { popupOpen } = this.state;
+    const imagePaths = [
+      {path1: GirlOnLaptop}, 
+      {path2: PairProgramming},
+      {path3: TinyDevelopers}, 
+      {path4: WebsiteDesign}
+    ]
 
-    const imageAccreditLink = images.map((author, key) => {
+    // Map image accredit conditionally, based on component using it
+    const imageAccreditLink = imageAuthors.map((author, key) => {
       if (this.props.componentName === 'HomePage'){
         return (
-          <div key={key}>
+          <div key={key} className='imageAccreditPopup'>
             {author.GirlOnLaptopAuthor}
           </div>
         )
       } else if (this.props.componentName === 'HtmlAccordion'){
         return (
-          <div key={key}>
+          <div key={key} className='imageAccreditPopup'>
             {author.PairProgrammingAuthor}
           </div>
         )
       } else if (this.props.componentName === 'CssAccordion'){
         return (
-          <div key={key}>
+          <div key={key} className='imageAccreditPopup'>
             {author.TinyDevelopersAuthor}
           </div>
         )
       } else {
-          <div key={key}>
-            {author.WebsiteDesign}
+          <div key={key} className='imageAccreditPopup'>
+            {author.WebsiteDesignAuthor}
           </div>
         }
       });
 
+    // Map image src conditionally, based on component using it
+      const imageSrc = imagePaths.map((path, key) => {
+        if (this.props.componentName === 'HomePage'){
+          return (
+            <img
+              onMouseEnter={this.togglePopup}
+              onMouseLeave={this.togglePopup}
+              src={path.path1}
+              className='text-over-img'
+              width='40%'
+              height='40%'
+              key={key}
+            />
+          )
+        } else if (this.props.componentName === 'HtmlAccordion'){
+          return (
+            <img
+              onMouseEnter={this.togglePopup}
+              onMouseLeave={this.togglePopup}
+              src={path.path2}
+              className='text-over-img'
+              width='40%'
+              height='40%'
+              key={key}
+            />
+          )
+        } else if (this.props.componentName === 'CssAccordion'){
+          return (
+            <img
+              onMouseEnter={this.togglePopup}
+              onMouseLeave={this.togglePopup}
+              src={path.path3}
+              className='text-over-img'
+              width='40%'
+              height='40%'
+              key={key}
+            />
+          )
+        } else {
+            return (
+              <img
+                onMouseEnter={this.togglePopup}
+                onMouseLeave={this.togglePopup}
+                src={path.path4}
+                className='text-over-img'
+                width='40%'
+                height='40%'
+                key={key}
+              />
+            )
+          }
+        });
+  
+
     return (
       <>
-        <img
-          onMouseEnter={this.togglePopover}
-          onMouseLeave={this.togglePopover}
-          src={GirlOnLaptop}
-          className={classes.image}
-        />
-        {
-          popoverOpen ?
-          <Popover
-            text={imageAccreditLink}
-            onMouseLeave={this.togglePopover}
-          />
-        : null
-        }
+        <div>
+          {imageSrc}
+          {
+            popupOpen ?
+            <Popup
+              text={imageAccreditLink}
+              onMouseLeave={this.togglePopup}
+            />
+          : null
+          }
+        </div>
       </>
     );
   }
 }
 
-export default withStyles(styles, { withTheme: true })(AccreditImage);
+export default AccreditImage;
